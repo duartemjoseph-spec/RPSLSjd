@@ -1,0 +1,115 @@
+body {
+    background-color: #2D2446; 
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    text-align: center;
+}
+
+.screen {
+    width: 100%;
+    max-width: 800px; 
+}
+
+.hidden { display: none; }
+.active { display: block; }
+
+h1 { font-size: 3rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px;}
+p { font-size: 1.5rem; color: #ccc; margin-bottom: 40px; }
+
+/* --- BUTTON GRID --- */
+.button-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; 
+    margin-top: 20px;
+}
+
+.game-btn {
+    width: 130px;  
+    height: 160px; 
+    border-radius: 15px; 
+    border: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+    color: white; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+/* Image Sizing  */
+.icon-img {
+    width: 150px;   
+    height: 150px;
+    object-fit: contain;
+    margin-bottom: 10px;
+    pointer-events: none;
+}
+
+/* Button Background Colors */
+.rock { background-color: #E57373; }
+.paper { background-color: #FFD54F; color: white; } 
+.scissors { background-color: #BA68C8; color : white; }
+.lizard { background-color: #81C784; }
+.spock { background-color: #64B5F6; }
+
+.game-btn:hover { transform: translateY(-5px); }
+
+/* --- RESULTS SCREEN --- */
+.result-container {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+
+.player-box {
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 10px;
+    min-width: 150px;
+}
+
+.result-img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3)); 
+}
+
+.icon-large {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#winnerText {
+    font-size: 3rem;
+    color: #FFD700; 
+    text-shadow: 2px 2px 4px #000;
+}
+
+.reset-btn {
+    padding: 15px 40px;
+    font-size: 1.5rem;
+    background-color: white;
+    color: #2D2446;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 20px;
+}
+.reset-btn:hover { background-color: #ddd; }
