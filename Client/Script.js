@@ -1,4 +1,4 @@
-const apiUrl = "http://127.0.0.1:5054/Game/GetCpuChoice";
+const apiUrl = "https://rpslsgame-gycwb0ctbbhveab9.westus3-01.azurewebsites.net/Game/GetCpuChoice";
 
 async function playGame(userChoice) {
   // Fetch CPU Choice from API
@@ -15,7 +15,6 @@ async function playGame(userChoice) {
 }
 
 function displayResult(user, cpu) {
-  // use innerHTML now so it renders the image tag instead of text
   document.getElementById("userChoiceDisplay").innerHTML = getImgTag(user);
   document.getElementById("cpuChoiceDisplay").innerHTML = getImgTag(cpu);
 

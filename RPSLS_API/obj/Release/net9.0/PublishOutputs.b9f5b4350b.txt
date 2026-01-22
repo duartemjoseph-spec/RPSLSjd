@@ -1,0 +1,12 @@
+C:\Users\littl\OneDrive\Documents\Academy\CodeStack Level2\Assignments Level2\RPSLSjd\RPSLS_API\bin\Release\net9.0\publish\RPSLS_API.exe
+C:\Users\littl\OneDrive\Documents\Academy\CodeStack Level2\Assignments Level2\RPSLSjd\RPSLS_API\bin\Release\net9.0\publish\appsettings.Development.json
+C:\Users\littl\OneDrive\Documents\Academy\CodeStack Level2\Assignments Level2\RPSLSjd\RPSLS_API\bin\Release\net9.0\publish\appsettings.json
+C:\Users\littl\OneDrive\Documents\Academy\CodeStack Level2\Assignments Level2\RPSLSjd\RPSLS_API\bin\Release\net9.0\publish\RPSLS_API.dll
+C:\Users\littl\OneDrive\Documents\Academy\CodeStack Level2\Assignments Level2\RPSLSjd\RPSLS_API\bin\Release\net9.0\publish\RPSLS_API.deps.json
+C:\Users\littl\OneDrive\Documents\Academy\CodeStack Level2\Assignments Level2\RPSLSjd\RPSLS_API\bin\Release\net9.0\publish\RPSLS_API.runtimeconfig.json
+C:\Users\littl\OneDrive\Documents\Academy\CodeStack Level2\Assignments Level2\RPSLSjd\RPSLS_API\bin\Release\net9.0\publish\RPSLS_API.pdb
+C:\Users\littl\OneDrive\Documents\Academy\CodeStack Level2\Assignments Level2\RPSLSjd\RPSLS_API\bin\Release\net9.0\publish\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\littl\OneDrive\Documents\Academy\CodeStack Level2\Assignments Level2\RPSLSjd\RPSLS_API\bin\Release\net9.0\publish\Microsoft.OpenApi.dll
+C:\Users\littl\OneDrive\Documents\Academy\CodeStack Level2\Assignments Level2\RPSLSjd\RPSLS_API\bin\Release\net9.0\publish\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\littl\OneDrive\Documents\Academy\CodeStack Level2\Assignments Level2\RPSLSjd\RPSLS_API\bin\Release\net9.0\publish\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\littl\OneDrive\Documents\Academy\CodeStack Level2\Assignments Level2\RPSLSjd\RPSLS_API\bin\Release\net9.0\publish\Swashbuckle.AspNetCore.SwaggerUI.dll
