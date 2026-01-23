@@ -1,92 +1,201 @@
 const apiUrl = "https://rpslsgame-gycwb0ctbbhveab9.westus3-01.azurewebsites.net/Game/GetCpuChoice";
 
-async function playGame(userChoice) {
-  // Fetch CPU Choice from API
-  try {
-    const response = await fetch(apiUrl);
-    const cpuChoice = await response.text();
+// State Variables
+let gameMode = 'cpu'; // 'cpu' or 'pvp'
+let winsNeeded = 1;
+let p1Score = 0;
+let p2Score = 0;
 
-    //  Show results 
-    displayResult(userChoice, cpuChoice);
-  } catch (error) {
-    console.error(error);
-    alert("Error connecting to API! Is the backend running?");
-  }
+// PvP Specific Variables
+let currentPlayer = 1;
+let p1Choice = ""; 
+
+// --- NAVIGATION FUNCTIONS ---
+
+function goHome() {
+    resetScores();
+    showScreen('homeScreen');
 }
 
-function displayResult(user, cpu) {
-  document.getElementById("userChoiceDisplay").innerHTML = getImgTag(user);
-  document.getElementById("cpuChoiceDisplay").innerHTML = getImgTag(cpu);
-
-  const result = checkWinner(user, cpu);
-  document.getElementById("winnerText").innerText = result.title;
-  document.getElementById("reasonText").innerText = result.message;
-
-  showScreen("resultScreen");
+function goToModeSelect(mode) {
+    gameMode = mode;
+    showScreen('roundScreen');
 }
 
-function checkWinner(user, cpu) {
-  user = user.toLowerCase();
-  cpu = cpu.toLowerCase();
-
-  if (user === cpu)
-    return { title: "It's a Tie!", message: "Great minds think alike." };
-
-  // Win Logic
-  if (
-    (user === "rock" && (cpu === "scissors" || cpu === "lizard")) ||
-    (user === "paper" && (cpu === "rock" || cpu === "spock")) ||
-    (user === "scissors" && (cpu === "paper" || cpu === "lizard")) ||
-    (user === "lizard" && (cpu === "spock" || cpu === "paper")) ||
-    (user === "spock" && (cpu === "scissors" || cpu === "rock"))
-  ) {
-    return {
-      title: "You Win!",
-      message: `${capitalize(user)} beats ${capitalize(cpu)}`,
-    };
-  }
-
-  return {
-    title: "CPU Wins!",
-    message: `${capitalize(cpu)} beats ${capitalize(user)}`,
-  };
+function startGame(rounds) {
+    winsNeeded = rounds;
+    resetScores();
+    currentPlayer = 1; // Always start with P1
+    
+    // Update Scoreboard labels
+    document.getElementById('targetScore').innerText = winsNeeded;
+    
+    if (gameMode === 'cpu') {
+        document.getElementById('p2Name').innerHTML = "CPU: <span id='p2Score'>0</span>";
+        document.getElementById('opponentLabel').innerText = "CPU";
+        updateInstruction("Choose your move:");
+    } else {
+        document.getElementById('p2Name').innerHTML = "P2: <span id='p2Score'>0</span>";
+        document.getElementById('opponentLabel').innerText = "Player 2";
+        updateInstruction("Player 1's Turn - Choose your move:");
+    }
+    
+    showScreen('gameScreen');
 }
 
-function resetGame() {
-  showScreen("startScreen");
-}
-
-// Utility Helpers
 function showScreen(screenId) {
-  document
-    .querySelectorAll(".screen")
-    .forEach((s) => s.classList.remove("active"));
-  document
-    .querySelectorAll(".screen")
-    .forEach((s) => s.classList.add("hidden"));
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+    
+    const target = document.getElementById(screenId);
+    if(target) {
+        target.classList.remove('hidden');
+        target.classList.add('active');
+    }
+}
 
-  const target = document.getElementById(screenId);
-  target.classList.remove("hidden");
-  target.classList.add("active");
+function updateInstruction(text) {
+    document.getElementById('gameInstruction').innerText = text;
+}
+
+// --- GAME LOGIC ---
+
+function handleMove(choice) {
+    if (gameMode === 'cpu') {
+        playCpuRound(choice);
+    } else {
+        playPvPRound(choice);
+    }
+}
+
+// 1. CPU MODE
+async function playCpuRound(userChoice) {
+    try {
+        const response = await fetch(apiUrl);
+        let cpuChoice = await response.text();
+        cpuChoice = cpuChoice.replace(/"/g, '').trim(); 
+
+        const result = checkWinner(userChoice, cpuChoice);
+        
+        if (result.winner === 'user') p1Score++;
+        if (result.winner === 'cpu') p2Score++;
+
+        displayResult(userChoice, cpuChoice, result);
+
+    } catch (error) {
+        console.error(error);
+        alert("API Error! Using random backup.");
+        const choices = ['Rock', 'Paper', 'Scissors', 'Lizard', 'Spock'];
+        const random = choices[Math.floor(Math.random() * choices.length)];
+        displayResult(userChoice, random, checkWinner(userChoice, random));
+    }
+}
+
+// 2. PvP MODE
+function playPvPRound(choice) {
+    if (currentPlayer === 1) {
+        // Player 1 finished. Save choice and hide screen.
+        p1Choice = choice;
+        currentPlayer = 2;
+        
+        // Show "Pass Device" screen
+        document.getElementById('nextPlayerName').innerText = "Player 2";
+        showScreen('transitionScreen');
+        
+    } else {
+        // Player 2 finished. Compare choices immediately.
+        const p2Choice = choice;
+        const result = checkWinner(p1Choice, p2Choice);
+        
+        if (result.winner === 'user') p1Score++; // 'user' is P1 in this logic
+        if (result.winner === 'cpu') p2Score++;  // 'cpu' is P2 in this logic
+        
+        // Show Result
+        displayResult(p1Choice, p2Choice, result);
+    }
+}
+
+// Called when "I am Ready" is clicked in PvP
+function startTurn() {
+    updateInstruction(`Player ${currentPlayer}'s Turn - Choose your move:`);
+    showScreen('gameScreen');
+}
+
+function displayResult(p1Move, p2Move, resultData) {
+    // Update Images
+    document.getElementById("userChoiceDisplay").innerHTML = getImgTag(p1Move);
+    document.getElementById("cpuChoiceDisplay").innerHTML = getImgTag(p2Move);
+
+    // Update Text
+    document.getElementById("winnerText").innerText = resultData.title;
+    document.getElementById("reasonText").innerText = resultData.message;
+
+    // Update Scoreboard Numbers
+    document.getElementById("p1Score").innerText = p1Score;
+    document.getElementById("p2Score").innerText = p2Score;
+
+    showScreen("resultScreen");
+}
+
+function nextRound() {
+    // Check if match is over
+    if (p1Score >= winsNeeded) {
+        const winnerName = (gameMode === 'cpu') ? "You" : "Player 1";
+        alert(`CONGRATULATIONS! ${winnerName} won the match!`);
+        goHome();
+    } else if (p2Score >= winsNeeded) {
+        const winnerName = (gameMode === 'cpu') ? "CPU" : "Player 2";
+        alert(`GAME OVER! ${winnerName} won the match!`);
+        goHome();
+    } else {
+        // Reset for next round
+        currentPlayer = 1;
+        if (gameMode === 'pvp') {
+            updateInstruction("Player 1's Turn - Choose your move:");
+        } else {
+            updateInstruction("Choose your move:");
+        }
+        showScreen("gameScreen");
+    }
+}
+
+function resetScores() {
+    p1Score = 0;
+    p2Score = 0;
+    currentPlayer = 1;
+    document.getElementById("p1Score").innerText = 0;
+    document.getElementById("p2Score").innerText = 0;
+}
+
+// --- HELPER LOGIC ---
+
+function checkWinner(p1, p2) {
+    p1 = p1.toLowerCase();
+    p2 = p2.toLowerCase();
+
+    if (p1 === p2) return { title: "It's a Tie!", message: "Great minds think alike.", winner: 'draw' };
+
+    // Standard Win Logic
+    if (
+        (p1 === "rock" && (p2 === "scissors" || p2 === "lizard")) ||
+        (p1 === "paper" && (p2 === "rock" || p2 === "spock")) ||
+        (p1 === "scissors" && (p2 === "paper" || p2 === "lizard")) ||
+        (p1 === "lizard" && (p2 === "spock" || p2 === "paper")) ||
+        (p1 === "spock" && (p2 === "scissors" || p2 === "rock"))
+    ) {
+        // P1 Wins
+        return { title: "Player 1 Wins!", message: `${capitalize(p1)} beats ${capitalize(p2)}`, winner: 'user' };
+    }
+
+    // P2 (or CPU) Wins
+    const p2Name = (gameMode === 'cpu') ? "CPU" : "Player 2";
+    return { title: `${p2Name} Wins!`, message: `${capitalize(p2)} beats ${capitalize(p1)}`, winner: 'cpu' };
 }
 
 function getImgTag(choice) {
-  const c = choice.toLowerCase();
-  let fileName = "";
-
-  // MAPPING: 
-  if (c === "rock")
-    fileName = "Rock.png"; 
-  else if (c === "paper")
-    fileName = "paper.png"; 
-  else if (c === "scissors") fileName = "scissors.png";
-  else if (c === "lizard")
-    fileName = "Lizard.png"; 
-  else if (c === "spock") fileName = "spock.png";
-
-  return `<img src="./Photos/${fileName}" alt="${choice}" class="result-img">`;
+    return `<img src="./Photos/${choice}.png" alt="${choice}" class="result-img" onerror="this.src='./Photos/${choice.toLowerCase()}.png'">`;
 }
 
 function capitalize(word) {
-  return word.charAt(0).toUpperCase() + word.slice(1);
+    return word.charAt(0).toUpperCase() + word.slice(1);
 }

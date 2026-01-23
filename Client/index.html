@@ -10,49 +10,103 @@
 
 <body>
 
-    <body>
+    <div id="homeScreen" class="screen active">
+        <h1>Rock Paper Scissors<br>Lizard Spock</h1>
+        <div class="menu-container">
+            <button class="menu-btn primary" onclick="goToModeSelect('cpu')">Player vs CPU</button>
+            <button class="menu-btn primary" onclick="goToModeSelect('pvp')">Player vs Player</button>
+            <button class="menu-btn secondary" onclick="showScreen('rulesScreen')">How to Play</button>
+        </div>
+    </div>
 
-        <div id="startScreen" class="screen active">
-            <h1>Rock Paper Scissors<br>Lizard Spock</h1>
-            <p>Choose your move:</p>
+    <div id="rulesScreen" class="screen hidden">
+        <h1 class="rules-title">How To Play</h1>
+        <div class="rules-content">
+            <div class="rules-text">
+                <p>Scissors cuts Paper</p>
+                <p>Paper covers Rock</p>
+                <p>Rock crushes Lizard</p>
+                <p>Lizard poisons Spock</p>
+                <p>Spock smashes Scissors</p>
+                <p>Scissors decapitates Lizard</p>
+                <p>Lizard eats Paper</p>
+                <p>Paper disproves Spock</p>
+                <p>Spock vaporizes Rock</p>
+                <p>Rock breaks Scissors</p>
+            </div>
+            <div class="rules-image">
+                <img src="./Photos/rules-diagram.png" alt="Rules Diagram" onerror="this.style.display='none'">
+            </div>
+        </div>
+        <button class="menu-btn secondary" onclick="goHome()">Home</button>
+    </div>
 
-            <div class="button-grid">
-                <button class="game-btn rock" onclick="playGame('Rock')">
-                    <img src="./Photos/Rock.png" alt="Rock" class="icon-img"><br>Rock
-                </button>
-                <button class="game-btn paper" onclick="playGame('Paper')">
-                    <img src="./Photos/paper.png" alt="Paper" class="icon-img"><br>Paper
-                </button>
-                <button class="game-btn scissors" onclick="playGame('Scissors')">
-                    <img src="./Photos/scissors.png" alt="Scissors" class="icon-img"><br>Scissors
-                </button>
-                <button class="game-btn lizard" onclick="playGame('Lizard')">
-                    <img src="./Photos/Lizard.png" alt="Lizard" class="icon-img"><br>Lizard
-                </button>
-                <button class="game-btn spock" onclick="playGame('Spock')">
-                    <img src="./Photos/spock.png" alt="Spock" class="icon-img"><br>Spock
-                </button>
+    <div id="roundScreen" class="screen hidden">
+        <h1>Select Rounds</h1>
+        <p>How many wins to end the match?</p>
+        <div class="menu-container">
+            <button class="menu-btn primary" onclick="startGame(1)">Best of 1</button>
+            <button class="menu-btn primary" onclick="startGame(3)">Best of 5 (First to 3)</button>
+            <button class="menu-btn primary" onclick="startGame(4)">Best of 7 (First to 4)</button>
+        </div>
+        <button class="back-btn" onclick="goHome()">Back</button>
+    </div>
+
+    <div id="transitionScreen" class="screen hidden">
+        <h1 class="highlight-text">Hidden Turn</h1>
+        <p>Pass the device to <span id="nextPlayerName">Player 2</span></p>
+        <p class="small-text">(No peeking!)</p>
+        <button class="menu-btn primary" onclick="startTurn()">I am Ready</button>
+    </div>
+
+    <div id="gameScreen" class="screen hidden">
+        <div class="scoreboard">
+            <div class="score-box">P1: <span id="p1Score">0</span></div>
+            <div class="score-mid">Target: <span id="targetScore">1</span></div>
+            <div class="score-box" id="p2Name">CPU: <span id="p2Score">0</span></div>
+        </div>
+
+        <p id="gameInstruction">Choose your move:</p>
+
+        <div class="button-grid">
+            <button class="game-btn rock" onclick="handleMove('Rock')">
+                <img src="./Photos/Rock.png" alt="Rock" class="icon-img"><br>Rock
+            </button>
+            <button class="game-btn paper" onclick="handleMove('Paper')">
+                <img src="./Photos/paper.png" alt="Paper" class="icon-img"><br>Paper
+            </button>
+            <button class="game-btn scissors" onclick="handleMove('Scissors')">
+                <img src="./Photos/scissors.png" alt="Scissors" class="icon-img"><br>Scissors
+            </button>
+            <button class="game-btn lizard" onclick="handleMove('Lizard')">
+                <img src="./Photos/Lizard.png" alt="Lizard" class="icon-img"><br>Lizard
+            </button>
+            <button class="game-btn spock" onclick="handleMove('Spock')">
+                <img src="./Photos/spock.png" alt="Spock" class="icon-img"><br>Spock
+            </button>
+        </div>
+    </div>
+
+    <div id="resultScreen" class="screen hidden">
+        <div class="result-container">
+            <div class="player-box">
+                <h3>Player 1</h3>
+                <div id="userChoiceDisplay" class="icon-large">?</div>
+            </div>
+            <div class="player-box">
+                <h3 id="opponentLabel">CPU</h3>
+                <div id="cpuChoiceDisplay" class="icon-large">?</div>
             </div>
         </div>
 
-        <div id="resultScreen" class="screen hidden">
-            <div class="result-container">
-                <div class="player-box">
-                    <h3>You</h3>
-                    <div id="userChoiceDisplay" class="icon-large">?</div>
-                </div>
-                <div class="player-box">
-                    <h3>CPU</h3>
-                    <div id="cpuChoiceDisplay" class="icon-large">?</div>
-                </div>
-            </div>
+        <h1 id="winnerText">You Win!</h1>
+        <p id="reasonText">Lizard poisons Spock</p>
 
-            <h1 id="winnerText">You Win!</h1>
-            <p id="reasonText">Lizard poisons Spock</p>
+        <button class="reset-btn" onclick="nextRound()">Next Round</button>
+        <br><br>
+        <button class="menu-btn secondary" onclick="goHome()">Quit to Menu</button>
+    </div>
 
-            <button class="reset-btn" onclick="resetGame()">Play Again</button>
-        </div>
-    </body>
     <script src="./Script.js"></script>
 </body>
 
