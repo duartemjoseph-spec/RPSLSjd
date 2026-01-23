@@ -94,7 +94,7 @@ async function playCpuRound(userChoice) {
 // 2. PvP MODE
 function playPvPRound(choice) {
     if (currentPlayer === 1) {
-        // Player 1 finished. Save choice and hide screen.
+        // Player 1 finished.
         p1Choice = choice;
         currentPlayer = 2;
         
@@ -103,19 +103,18 @@ function playPvPRound(choice) {
         showScreen('transitionScreen');
         
     } else {
-        // Player 2 finished. Compare choices immediately.
+        // Player 2 finished.
         const p2Choice = choice;
         const result = checkWinner(p1Choice, p2Choice);
         
-        if (result.winner === 'user') p1Score++; // 'user' is P1 in this logic
-        if (result.winner === 'cpu') p2Score++;  // 'cpu' is P2 in this logic
+        if (result.winner === 'user') p1Score++; 
+        if (result.winner === 'cpu') p2Score++;  
         
         // Show Result
         displayResult(p1Choice, p2Choice, result);
     }
 }
 
-// Called when "I am Ready" is clicked in PvP
 function startTurn() {
     updateInstruction(`Player ${currentPlayer}'s Turn - Choose your move:`);
     showScreen('gameScreen');
@@ -199,3 +198,69 @@ function getImgTag(choice) {
 function capitalize(word) {
     return word.charAt(0).toUpperCase() + word.slice(1);
 }
+
+// --- EVENT LISTENERS ---
+
+// 1. Home Screen Buttons
+document.getElementById('btnCpu').addEventListener('click', function() {
+    goToModeSelect('cpu');
+});
+
+document.getElementById('btnPvp').addEventListener('click', function() {
+    goToModeSelect('pvp');
+});
+
+document.getElementById('btnRules').addEventListener('click', function() {
+    showScreen('rulesScreen');
+});
+
+// 2. Rules Screen Buttons
+document.getElementById('btnHomeRules').addEventListener('click', function() {
+    goHome();
+});
+
+
+// 3. Round Selection Buttons
+document.getElementById('btnBest1').addEventListener('click', function() {
+    startGame(1);
+});
+document.getElementById('btnBest3').addEventListener('click', function() {
+    startGame(3);
+});
+document.getElementById('btnBest4').addEventListener('click', function() {
+    startGame(4);
+});
+document.getElementById('btnBackRounds').addEventListener('click', function() {
+    goHome();
+});
+
+// 4. Transition Screen Button
+document.getElementById('btnReady').addEventListener('click', function() {
+    startTurn();
+});
+
+// 5. Game Buttons 
+document.getElementById('btnRock').addEventListener('click', function() {
+    handleMove('Rock');
+});
+document.getElementById('btnPaper').addEventListener('click', function() {
+    handleMove('Paper');
+});
+document.getElementById('btnScissors').addEventListener('click', function() {
+    handleMove('Scissors');
+});
+document.getElementById('btnLizard').addEventListener('click', function() {
+    handleMove('Lizard');
+});
+document.getElementById('btnSpock').addEventListener('click', function() {
+    handleMove('Spock');
+});
+
+
+document.getElementById('btnNextRound').addEventListener('click', function() {
+    nextRound();
+});
+
+document.getElementById('btnQuit').addEventListener('click', function() {
+    goHome();
+});

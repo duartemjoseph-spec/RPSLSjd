@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\littl\\OneDrive\\Documents\\Academy\\CodeStack Level2\\Assignments Level2\\RPSLSjd\\RPSLS_API\\RPSLS_API.csproj": {}
+    "C:\\Users\\littl\\OneDrive\\Documents\\Academy\\CodeStack Level2\\Assignments Level2\\RPSLSjd\\rpsls_api\\RPSLS_API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\littl\\OneDrive\\Documents\\Academy\\CodeStack Level2\\Assignments Level2\\RPSLSjd\\RPSLS_API\\RPSLS_API.csproj": {
+    "C:\\Users\\littl\\OneDrive\\Documents\\Academy\\CodeStack Level2\\Assignments Level2\\RPSLSjd\\rpsls_api\\RPSLS_API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\littl\\OneDrive\\Documents\\Academy\\CodeStack Level2\\Assignments Level2\\RPSLSjd\\RPSLS_API\\RPSLS_API.csproj",
+        "projectUniqueName": "C:\\Users\\littl\\OneDrive\\Documents\\Academy\\CodeStack Level2\\Assignments Level2\\RPSLSjd\\rpsls_api\\RPSLS_API.csproj",
         "projectName": "RPSLS_API",
-        "projectPath": "C:\\Users\\littl\\OneDrive\\Documents\\Academy\\CodeStack Level2\\Assignments Level2\\RPSLSjd\\RPSLS_API\\RPSLS_API.csproj",
+        "projectPath": "C:\\Users\\littl\\OneDrive\\Documents\\Academy\\CodeStack Level2\\Assignments Level2\\RPSLSjd\\rpsls_api\\RPSLS_API.csproj",
         "packagesPath": "C:\\Users\\littl\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\littl\\OneDrive\\Documents\\Academy\\CodeStack Level2\\Assignments Level2\\RPSLSjd\\RPSLS_API\\obj\\",
+        "outputPath": "C:\\Users\\littl\\OneDrive\\Documents\\Academy\\CodeStack Level2\\Assignments Level2\\RPSLSjd\\rpsls_api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\littl\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -72,7 +72,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.308/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

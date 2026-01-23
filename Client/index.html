@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RPSLS Game</title>
     <link rel="stylesheet" href="./style.css">
 </head>
-
 <body>
 
     <div id="homeScreen" class="screen active">
         <h1>Rock Paper Scissors<br>Lizard Spock</h1>
         <div class="menu-container">
-            <button class="menu-btn primary" onclick="goToModeSelect('cpu')">Player vs CPU</button>
-            <button class="menu-btn primary" onclick="goToModeSelect('pvp')">Player vs Player</button>
-            <button class="menu-btn secondary" onclick="showScreen('rulesScreen')">How to Play</button>
+            <button id="btnCpu" class="menu-btn primary">Player vs CPU</button>
+            <button id="btnPvp" class="menu-btn primary">Player vs Player</button>
+            <button id="btnRules" class="menu-btn secondary">How to Play</button>
         </div>
     </div>
 
@@ -35,28 +33,28 @@
                 <p>Rock breaks Scissors</p>
             </div>
             <div class="rules-image">
-                <img src="./Photos/rules-diagram.png" alt="Rules Diagram" onerror="this.style.display='none'">
+                 <img id="rulesImg" src="./Photos/rules-diagram.png" alt="Rules Diagram"> 
             </div>
         </div>
-        <button class="menu-btn secondary" onclick="goHome()">Home</button>
+        <button id="btnHomeRules" class="menu-btn secondary">Home</button>
     </div>
 
     <div id="roundScreen" class="screen hidden">
         <h1>Select Rounds</h1>
         <p>How many wins to end the match?</p>
         <div class="menu-container">
-            <button class="menu-btn primary" onclick="startGame(1)">Best of 1</button>
-            <button class="menu-btn primary" onclick="startGame(3)">Best of 5 (First to 3)</button>
-            <button class="menu-btn primary" onclick="startGame(4)">Best of 7 (First to 4)</button>
+            <button id="btnBest1" class="menu-btn primary">Best of 1</button>
+            <button id="btnBest3" class="menu-btn primary">Best of 5 (First to 3)</button>
+            <button id="btnBest4" class="menu-btn primary">Best of 7 (First to 4)</button>
         </div>
-        <button class="back-btn" onclick="goHome()">Back</button>
+        <button id="btnBackRounds" class="back-btn">Back</button>
     </div>
 
     <div id="transitionScreen" class="screen hidden">
         <h1 class="highlight-text">Hidden Turn</h1>
         <p>Pass the device to <span id="nextPlayerName">Player 2</span></p>
         <p class="small-text">(No peeking!)</p>
-        <button class="menu-btn primary" onclick="startTurn()">I am Ready</button>
+        <button id="btnReady" class="menu-btn primary">I am Ready</button>
     </div>
 
     <div id="gameScreen" class="screen hidden">
@@ -69,19 +67,19 @@
         <p id="gameInstruction">Choose your move:</p>
 
         <div class="button-grid">
-            <button class="game-btn rock" onclick="handleMove('Rock')">
+            <button id="btnRock" class="game-btn rock">
                 <img src="./Photos/Rock.png" alt="Rock" class="icon-img"><br>Rock
             </button>
-            <button class="game-btn paper" onclick="handleMove('Paper')">
+            <button id="btnPaper" class="game-btn paper">
                 <img src="./Photos/paper.png" alt="Paper" class="icon-img"><br>Paper
             </button>
-            <button class="game-btn scissors" onclick="handleMove('Scissors')">
+            <button id="btnScissors" class="game-btn scissors">
                 <img src="./Photos/scissors.png" alt="Scissors" class="icon-img"><br>Scissors
             </button>
-            <button class="game-btn lizard" onclick="handleMove('Lizard')">
+            <button id="btnLizard" class="game-btn lizard">
                 <img src="./Photos/Lizard.png" alt="Lizard" class="icon-img"><br>Lizard
             </button>
-            <button class="game-btn spock" onclick="handleMove('Spock')">
+            <button id="btnSpock" class="game-btn spock">
                 <img src="./Photos/spock.png" alt="Spock" class="icon-img"><br>Spock
             </button>
         </div>
@@ -102,12 +100,11 @@
         <h1 id="winnerText">You Win!</h1>
         <p id="reasonText">Lizard poisons Spock</p>
 
-        <button class="reset-btn" onclick="nextRound()">Next Round</button>
+        <button id="btnNextRound" class="reset-btn">Next Round</button>
         <br><br>
-        <button class="menu-btn secondary" onclick="goHome()">Quit to Menu</button>
+        <button id="btnQuit" class="menu-btn secondary">Quit to Menu</button>
     </div>
 
     <script src="./Script.js"></script>
 </body>
-
 </html>
