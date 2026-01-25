@@ -1,5 +1,5 @@
 const apiUrl = "https://rpslsgame-gycwb0ctbbhveab9.westus3-01.azurewebsites.net/Game/GetCpuChoice";
-
+//*WORKING LINK "https://victorious-meadow-0ca09501e.6.azurestaticapps.net"
 // State Variables
 let gameMode = 'cpu'; // 'cpu' or 'pvp'
 let winsNeeded = 1;
