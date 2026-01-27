@@ -19,20 +19,11 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 
-    app.UseSwagger();
-    app.UseSwaggerUI();
+app.UseSwagger();
+app.UseSwaggerUI();
 
 
 app.UseCors("AllowAll");
 
-// --- GAME LOGIC ---
-app.MapGet("/Game/GetCpuChoice", () =>
-{
-    string[] choices = { "Rock", "Paper", "Scissors", "Lizard", "Spock" };
-    Random rand = new Random();
-    int index = rand.Next(choices.Length);
-    return choices[index];
-})
-.WithOpenApi(); 
 
 app.Run();
